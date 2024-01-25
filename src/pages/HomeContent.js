@@ -9,7 +9,7 @@ import Slider from '../components/sliders/Slider';
 
 import useSize from '../helpers/useSize';
 
-// import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from 'react-responsive';
 
 export default function HomeContent() {
     // get window sizes dynamically
@@ -18,10 +18,10 @@ export default function HomeContent() {
     // console.log('innerHeight:', windowSize[1]);
 
     // media query
-    const isMobile = false;
+    // const isMobile = false;
     // const isDesktop = useMediaQuery({ minWidth: 992 });
     // const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
-    // const isMobile = useMediaQuery({ maxWidth: 767 });
+    const isMobile = useMediaQuery({ maxWidth: 767 });
 
     // const isNotDesktop = useMediaQuery({ maxWidth: 992 });
     // const isNotMobile = useMediaQuery({ minWidth: 768 });
