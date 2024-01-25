@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 
 import HomeContent from './HomeContent';
 
-// import SimpleBar from 'simplebar-react';
-// import 'simplebar-react/dist/simplebar.min.css';
+import SimpleBar from 'simplebar-react';
+import 'simplebar-react/dist/simplebar.min.css';
 
 // import 'overlayscrollbars/overlayscrollbars.css';
 // import { OverlayScrollbarsComponent, useOverlayScrollbars } from 'overlayscrollbars-react';
@@ -11,7 +11,7 @@ import HomeContent from './HomeContent';
 import useSize from '../helpers/useSize';
 
 // import { MediaDetect, Mobile, Desktop, MobileAndTablet } from '../components/media/MediaDetect';
-// import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Home() {
     // get window sizes dynamically
@@ -20,10 +20,10 @@ export default function Home() {
     // console.log('innerHeight:', windowSize[1]);
 
     // media query
-    const isMobile = false;
+    // const isMobile = false;
     // const isDesktop = useMediaQuery({ minWidth: 992 });
     // const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
-    // const isMobile = useMediaQuery({ maxWidth: 767 });
+    const isMobile = useMediaQuery({ maxWidth: 767 });
 
     // const isNotDesktop = useMediaQuery({ maxWidth: 992 });
     // const isNotMobile = useMediaQuery({ minWidth: 768 });
@@ -57,22 +57,22 @@ export default function Home() {
                 // <OverlayScrollbarsComponent style={{ height: `${windowSize[1]}px` }}>
                 // </OverlayScrollbarsComponent>
                 <div>
-                    {/* <SimpleBar style={{ height: `${windowSize[1]}px` }}> */}
-                    <HomeContent></HomeContent>
+                    <SimpleBar style={{ height: `${windowSize[1]}px` }}>
+                        <HomeContent></HomeContent>
 
-                    <p>
-                        <strong>
-                            innerWidth : <span>{windowSize[0]}</span>
-                        </strong>
-                    </p>
-                    <p>
-                        <strong>
-                            innerHeight : <span>{windowSize[1]}</span>
-                        </strong>
-                    </p>
-                    {/* <MediaDetect></MediaDetect> */}
-                    <h5>Applied Customized ScrollBar</h5>
-                    {/* </SimpleBar> */}
+                        <p>
+                            <strong>
+                                innerWidth : <span>{windowSize[0]}</span>
+                            </strong>
+                        </p>
+                        <p>
+                            <strong>
+                                innerHeight : <span>{windowSize[1]}</span>
+                            </strong>
+                        </p>
+                        {/* <MediaDetect></MediaDetect> */}
+                        <h5>Applied Customized ScrollBar</h5>
+                    </SimpleBar>
                 </div>
             ) : (
                 <>

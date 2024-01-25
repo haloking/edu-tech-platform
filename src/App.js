@@ -23,8 +23,8 @@ import CourseEdit from './pages/user/course/CourseEdit';
 // import Lecture from './pages/user/course/Lecture';
 import Listening from './pages/user/course/Listening';
 
-// import CourseCreate from './pages/user/course/CourseCreate';
-// import CourseView from './pages/CourseView';
+import CourseCreate from './pages/user/course/CourseCreate';
+import CourseView from './pages/CourseView';
 
 function App() {
     return (
@@ -56,8 +56,8 @@ function App() {
                             {/* <Route path="/learning/lecture/:slug" element={<Lecture />} /> */}
                             <Route path="/learning/listening/:slug" element={<Listening />} />
 
-                            {/* <Route path="/course/create" element={<CourseCreate />} /> */}
-                            {/* <Route path="/course/:slug" element={<CourseView />} /> */}
+                            <Route path="/course/create" element={<CourseCreate />} />
+                            <Route path="/course/:slug" element={<CourseView />} />
                         </Routes>
                     </BrowserRouter>
                 </GlobalStyles>
