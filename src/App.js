@@ -15,15 +15,16 @@ import ForgotPassword from './pages/auth/ForgotPassword';
 import AccessAccount from './pages/auth/AccessAccount';
 import PrivateRoute from './components/routes/PrivateRoute';
 
-// import Lecture from './pages/user/course/Lecture';
-// import Listening from './pages/user/course/Listening';
-
 // import Dashboard from './pages/user/Dashboard';
 // import EnrolledCourses from './pages/user/course/EnrolledCourses';
 // import PostedCourses from './pages/user/course/PostedCourses';
+// import CourseEdit from './pages/user/course/CourseEdit';
+
+// import Lecture from './pages/user/course/Lecture';
+// import Listening from './pages/user/course/Listening';
+
 // import CourseCreate from './pages/user/course/CourseCreate';
 // import CourseView from './pages/CourseView';
-// import CourseEdit from './pages/user/course/CourseEdit';
 
 function App() {
     return (
@@ -41,15 +42,15 @@ function App() {
                             <Route path="/auth/access-account/:token" element={<AccessAccount />} />
                             <Route path="/auth/forgot-password" element={<ForgotPassword />} />
 
-                            <Route path="/" element={<PrivateRoute />} />
-                            {/* <Route path="dashboard" element={<Dashboard />} /> */}
+                            <Route path="/" element={<PrivateRoute />}>
+                                {/* <Route path="dashboard" element={<Dashboard />} /> */}
 
-                            {/* <Route path="/user/enrolled-courses" element={<EnrolledCourses />} /> */}
-                            {/* <Route path="/user/posted-courses" element={<PostedCourses />} /> */}
+                                {/* <Route path="/user/enrolled-courses" element={<EnrolledCourses />} /> */}
+                                {/* <Route path="/user/posted-courses" element={<PostedCourses />} /> */}
 
-                            {/* chỉnh sửa khóa học */}
-                            {/* <Route path="user/course/:slug" element={<CourseEdit />} /> */}
-                            {/* </Route> */}
+                                {/* chỉnh sửa khóa học */}
+                                {/* <Route path="user/course/:slug" element={<CourseEdit />} /> */}
+                            </Route>
 
                             {/* slug of the course */}
                             {/* <Route path="/learning/lecture/:slug" element={<Lecture />} /> */}
