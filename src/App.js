@@ -7,9 +7,9 @@ import NavBar from './components/nav/NavBar';
 import { Toaster } from 'react-hot-toast';
 
 import Home from './pages/Home';
+
 import Register from './pages/Register';
 import Login from './pages/Login';
-
 import AccountActivate from './pages/auth/AccountActivate';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import AccessAccount from './pages/auth/AccessAccount';
