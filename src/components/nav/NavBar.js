@@ -107,9 +107,12 @@ export default function NavBar() {
                         </div>
 
                         {!loggedIn && (
-                            <a className="login-button" href="/login">
+                            <NavLink className="login-button" to="/login">
                                 Đăng nhập
-                            </a>
+                            </NavLink>
+                            // <a className="login-button" href="/login">
+                            //     Đăng nhập
+                            // </a>
                         )}
                         {loggedIn && !isMobile && (
                             <a className="dropstart">
