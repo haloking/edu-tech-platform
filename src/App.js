@@ -13,11 +13,11 @@ import Login from './pages/Login';
 import AccountActivate from './pages/auth/AccountActivate';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import AccessAccount from './pages/auth/AccessAccount';
+import PrivateRoute from './components/routes/PrivateRoute';
 
 // import Lecture from './pages/user/course/Lecture';
 // import Listening from './pages/user/course/Listening';
 
-// import PrivateRoute from './components/routes/PrivateRoute';
 // import Dashboard from './pages/user/Dashboard';
 // import EnrolledCourses from './pages/user/course/EnrolledCourses';
 // import PostedCourses from './pages/user/course/PostedCourses';
@@ -41,7 +41,7 @@ function App() {
                             <Route path="/auth/access-account/:token" element={<AccessAccount />} />
                             <Route path="/auth/forgot-password" element={<ForgotPassword />} />
 
-                            {/* <Route path="/" element={<PrivateRoute />}> */}
+                            <Route path="/" element={<PrivateRoute />} />
                             {/* <Route path="dashboard" element={<Dashboard />} /> */}
 
                             {/* <Route path="/user/enrolled-courses" element={<EnrolledCourses />} /> */}
