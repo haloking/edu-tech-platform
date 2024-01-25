@@ -24,8 +24,8 @@ import LearningBottomBar from '../../../components/nav/LearningBottomBar';
 // import { tapeScript } from '../../../helpers/tapeScript';
 import useSize from '../../../helpers/useSize';
 
-import { MediaDetect, Mobile, Desktop, MobileAndTablet } from '../../../components/media/MediaDetect';
-import { useMediaQuery } from 'react-responsive';
+// import { MediaDetect, Mobile, Desktop, MobileAndTablet } from '../../../components/media/MediaDetect';
+// import { useMediaQuery } from 'react-responsive';
 
 import { PiRepeatThin } from 'react-icons/pi';
 
@@ -45,12 +45,13 @@ export default function Learning() {
     // console.log('height:', windowSize[1]);
 
     // media query
-    const isDesktop = useMediaQuery({ minWidth: 992 });
-    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
-    const isMobile = useMediaQuery({ maxWidth: 767 });
+    const isMobile = false;
+    // const isDesktop = useMediaQuery({ minWidth: 992 });
+    // const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
+    // const isMobile = useMediaQuery({ maxWidth: 767 });
 
-    const isNotDesktop = useMediaQuery({ maxWidth: 992 });
-    const isNotMobile = useMediaQuery({ minWidth: 768 });
+    // const isNotDesktop = useMediaQuery({ maxWidth: 992 });
+    // const isNotMobile = useMediaQuery({ minWidth: 768 });
 
     // state
     const [isScrollbarsApplied, setIsScrollbarsApplied] = useState(true);
