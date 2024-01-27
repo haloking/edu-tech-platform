@@ -37,6 +37,12 @@ export default function Learning() {
     useEffect(() => {
         setIsLearning(true);
         // console.log('isLearning', isLearning);
+
+        // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        // const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
+        // return () => {
+        //     tooltipList.map((t) => t.dispose());
+        // };
     }, []);
 
     // get window size dynamically
@@ -939,6 +945,59 @@ export default function Learning() {
         );
     };
 
+    // render tapescript component
+    const RenderTapescript = () => {
+        return (
+            <>
+                {tapescript?.map((text, index) => (
+                    <div className="mb-3" key={index}>
+                        {text.seperatedText?.map((word, i) => (
+                            <span
+                                onClick={(e) => handleClickSentence(e, text)}
+                                style={{
+                                    color:
+                                        currentTime > text.timeStartSeperatedText[i] / 1000 &&
+                                        currentTime < text.timeEndSeperatedText[i] / 1000
+                                            ? 'Tomato'
+                                            : '',
+                                    border:
+                                        currentTime > text.timeStartSeperatedText[i] / 1000 &&
+                                        currentTime < text.timeEndSeperatedText[i] / 1000
+                                            ? '0.1px solid Tomato'
+                                            : '',
+                                    borderRadius:
+                                        currentTime > text.timeStartSeperatedText[i] / 1000 &&
+                                        currentTime < text.timeEndSeperatedText[i] / 1000
+                                            ? '5px'
+                                            : '',
+                                }}
+                                key={i}
+                            >
+                                {word}
+                            </span>
+                        ))}
+                        <br></br>
+                        {isVietnamese && (
+                            <span
+                                // onClick={(e) => handleClickSentence(e, text)}
+                                className="text-subtitle"
+                                // style={{
+                                //     color:
+                                //         currentTime > text.timeStart / 1000 &&
+                                //         currentTime < text.timeEnd / 1000
+                                //             ? 'SlateBlue'
+                                //             : '',
+                                // }}
+                            >
+                                {text.vietnamese}
+                            </span>
+                        )}
+                    </div>
+                ))}
+            </>
+        );
+    };
+
     return (
         <div className="container-fluid p-0 m-0">
             <LearningTopBar title={course.title}></LearningTopBar>
@@ -972,9 +1031,9 @@ export default function Learning() {
 
                                     {isDictating ? (
                                         // listening and fill in the blanks
-                                        // render sentences
+                                        // render sentences for filling in the blanks
                                         <div className="border border-white rounded-3 p-2 w-md-75 w-xl-50 mx-auto dictating-window">
-                                            {/* <SimpleBar style={{ height: `50vh` }}> */}
+                                            {/* <SimpleBar style={{ height: `40vh` }}> */}
                                             {level !== 'all' ? (
                                                 // listening then fill in the blanks
                                                 <div className="fill-in-the-blanks">
@@ -984,8 +1043,11 @@ export default function Learning() {
                                                                 index,
                                                             );
                                                         if (isIncluded) {
-                                                            // const blankWidth = 100;
-                                                            const blankWidth = word.length * 12;
+                                                            let blankWidth = 30;
+                                                            if (word.length > 2) {
+                                                                blankWidth = word.length * 12;
+                                                            }
+
                                                             // console.log(blankWidth);
                                                             const indexAnswer = tapescript[
                                                                 textIndex
@@ -1012,8 +1074,8 @@ export default function Learning() {
                                                                                 color:
                                                                                     answer0.toLowerCase() ===
                                                                                     word.toLowerCase()
-                                                                                        ? 'blue'
-                                                                                        : 'red',
+                                                                                        ? 'var(--right-text-color)'
+                                                                                        : 'var(--wrong-text-color)',
                                                                             }}
                                                                             value={answer0}
                                                                             onChange={(e) => setAnswer0(e.target.value)}
@@ -1038,8 +1100,8 @@ export default function Learning() {
                                                                                 color:
                                                                                     answer1.toLowerCase() ===
                                                                                     word.toLowerCase()
-                                                                                        ? 'blue'
-                                                                                        : 'red',
+                                                                                        ? 'var(--right-text-color)'
+                                                                                        : 'var(--wrong-text-color)',
                                                                             }}
                                                                             value={answer1}
                                                                             onChange={(e) => setAnswer1(e.target.value)}
@@ -1064,8 +1126,8 @@ export default function Learning() {
                                                                                 color:
                                                                                     answer2.toLowerCase() ===
                                                                                     word.toLowerCase()
-                                                                                        ? 'blue'
-                                                                                        : 'red',
+                                                                                        ? 'var(--right-text-color)'
+                                                                                        : 'var(--wrong-text-color)',
                                                                             }}
                                                                             value={answer2}
                                                                             onChange={(e) => setAnswer2(e.target.value)}
@@ -1090,8 +1152,8 @@ export default function Learning() {
                                                                                 color:
                                                                                     answer3.toLowerCase() ===
                                                                                     word.toLowerCase()
-                                                                                        ? 'blue'
-                                                                                        : 'red',
+                                                                                        ? 'var(--right-text-color)'
+                                                                                        : 'var(--wrong-text-color)',
                                                                             }}
                                                                             value={answer3}
                                                                             onChange={(e) => setAnswer3(e.target.value)}
@@ -1116,8 +1178,8 @@ export default function Learning() {
                                                                                 color:
                                                                                     answer4.toLowerCase() ===
                                                                                     word.toLowerCase()
-                                                                                        ? 'blue'
-                                                                                        : 'red',
+                                                                                        ? 'var(--right-text-color)'
+                                                                                        : 'var(--wrong-text-color)',
                                                                             }}
                                                                             value={answer4}
                                                                             onChange={(e) => setAnswer4(e.target.value)}
@@ -1142,8 +1204,8 @@ export default function Learning() {
                                                                                 color:
                                                                                     answer5.toLowerCase() ===
                                                                                     word.toLowerCase()
-                                                                                        ? 'blue'
-                                                                                        : 'red',
+                                                                                        ? 'var(--right-text-color)'
+                                                                                        : 'var(--wrong-text-color)',
                                                                             }}
                                                                             value={answer5}
                                                                             onChange={(e) => setAnswer5(e.target.value)}
@@ -1176,170 +1238,21 @@ export default function Learning() {
                                         </div>
                                     ) : (
                                         // listening with tapescript UI
-                                        <div className="p-2 w-md-75 w-xl-50 mx-auto tapescript-window">
-                                            {/* <Scrollbars style={{ height: '50vh' }}> */}
+                                        <div className="p-2 p-md-3 w-md-75 w-xl-50 mx-auto tapescript-window">
                                             {/* <SimpleBar style={{ height: `${windowSize[1] - 57 - 100}px` }}> */}
-                                            {/* <SimpleBar style={{ height: '50vh' }}> */}
-                                            <div className="">
-                                                {tapescript?.map((text, index) => (
-                                                    <div className="mb-3" key={index}>
-                                                        {text.seperatedText?.map((word, i) => (
-                                                            <span
-                                                                onClick={(e) => handleClickSentence(e, text)}
-                                                                style={{
-                                                                    color:
-                                                                        currentTime >
-                                                                            text.timeStartSeperatedText[i] / 1000 &&
-                                                                        currentTime <
-                                                                            text.timeEndSeperatedText[i] / 1000
-                                                                            ? 'Tomato'
-                                                                            : '',
-                                                                    border:
-                                                                        currentTime >
-                                                                            text.timeStartSeperatedText[i] / 1000 &&
-                                                                        currentTime <
-                                                                            text.timeEndSeperatedText[i] / 1000
-                                                                            ? '0.1px solid Tomato'
-                                                                            : '',
-                                                                    borderRadius:
-                                                                        currentTime >
-                                                                            text.timeStartSeperatedText[i] / 1000 &&
-                                                                        currentTime <
-                                                                            text.timeEndSeperatedText[i] / 1000
-                                                                            ? '5px'
-                                                                            : '',
-                                                                }}
-                                                                key={i}
-                                                            >
-                                                                {word}
-                                                            </span>
-                                                        ))}
-                                                        <br></br>
-                                                        {isVietnamese && (
-                                                            <span
-                                                                // onClick={(e) => handleClickSentence(e, text)}
-                                                                className="text-subtitle"
-                                                                // style={{
-                                                                //     color:
-                                                                //         currentTime > text.timeStart / 1000 &&
-                                                                //         currentTime < text.timeEnd / 1000
-                                                                //             ? 'SlateBlue'
-                                                                //             : '',
-                                                                // }}
-                                                            >
-                                                                {text.vietnamese}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                ))}
-
-                                                {/* {tapescript?.map((text, index) => (
-                                        <div className="mb-3" key={index}>
-                                            <span
-                                                onClick={(e) => handleClickSentence(e, text)}
-                                                className="text-button"
-                                                style={{
-                                                    color:
-                                                        currentTime > text.timeStart / 1000 &&
-                                                        currentTime < text.timeEnd / 1000
-                                                            ? 'blue'
-                                                            : '',
-                                                }}
-                                            >
-                                                {text.english}
-                                            </span>
-                                            <br></br>
-                                            {isVietnamese ? (
-                                                <span
-                                                    onClick={(e) => handleClickSentence(e, text)}
-                                                    className="text-button-subtitle"
-                                                    style={{
-                                                        color:
-                                                            currentTime > text.timeStart / 1000 &&
-                                                            currentTime < text.timeEnd / 1000
-                                                                ? 'green'
-                                                                : '',
-                                                    }}
-                                                >
-                                                    {text.vietnamese}
-                                                </span>
+                                            {isScrollbarsApplied ? (
+                                                <SimpleBar style={{ height: 'inherit' }}>
+                                                    <RenderTapescript></RenderTapescript>
+                                                </SimpleBar>
                                             ) : (
-                                                <></>
+                                                <RenderTapescript></RenderTapescript>
                                             )}
-
-                                            <br></br>
-                                        </div>
-                                    ))} */}
-                                            </div>
-                                            {/* </SimpleBar> */}
-                                            {/* </Scrollbars> */}
                                         </div>
                                     )}
 
-                                    {/* lesson title and progress bar shown on Mobile */}
-                                    {isMobile && (
-                                        <div className="mt-4">
-                                            <div className="d-flex justify-content-between">
-                                                <p className="fw-bolder text-capitalize mx-3">{lessonTitle}</p>
-                                                <div className="mx-2">
-                                                    {isDictating && (
-                                                        <button
-                                                            // onClick={handleRepeat}
-                                                            type="button"
-                                                            className="btn btn-primary btn-sm border-0 bg-transparent"
-                                                        >
-                                                            <i className="fa-solid fa-stairs"></i>
-                                                        </button>
-                                                    )}
-                                                    {isDictating && (
-                                                        <button
-                                                            // onClick={handleRepeat}
-                                                            type="button"
-                                                            className="btn btn-primary btn-sm border-0 bg-transparent"
-                                                        >
-                                                            <i className="fa-solid fa-gauge-high"></i>
-                                                        </button>
-                                                    )}
-                                                    {isRepeatedOn ? (
-                                                        <button
-                                                            onClick={handleRepeat}
-                                                            type="button"
-                                                            className="btn btn-primary btn-sm border-0 bg-transparent"
-                                                        >
-                                                            {/* <PiRepeatThin /> */}
-                                                            <i class="fa-solid fa-arrow-right"></i>
-                                                        </button>
-                                                    ) : (
-                                                        <button
-                                                            onClick={handleRepeat}
-                                                            type="button"
-                                                            className="btn btn-primary btn-sm border-0 bg-transparent"
-                                                        >
-                                                            <i className="fa-solid fa-repeat"></i>
-                                                        </button>
-                                                    )}
-                                                </div>
-                                            </div>
-
-                                            <div className="progress mx-3" style={{ height: '2px' }}>
-                                                <div
-                                                    class="progress-bar"
-                                                    role="progressbar"
-                                                    style={{ width: '25%' }}
-                                                    aria-valuenow="25"
-                                                    aria-valuemin="0"
-                                                    aria-valuemax="100"
-                                                ></div>
-                                            </div>
-                                            <div className="d-flex justify-content-between mx-3 mt-1">
-                                                <p className="time-progress">0.0</p>
-                                                <p className="time-progress">4.3</p>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* button bar for utilities */}
-                                    {isMobile ? (
+                                    {/* progress bar and lesson title shown on Mobile */}
+                                    <div className="w-md-75 w-xl-50 mx-auto">
+                                        {/* button bar for utilities */}
                                         <div className="d-flex justify-content-between mx-2">
                                             {isDictating && !isCheckAnswer && (
                                                 <button
@@ -1348,7 +1261,7 @@ export default function Learning() {
                                                     className="btn btn-primary btn-sm border-0 bg-transparent"
                                                 >
                                                     {/* <i className="fa-solid fa-circle-check"></i> */}
-                                                    <i class="fa-solid fa-spell-check"></i>
+                                                    <i className="fa-solid fa-spell-check"></i>
                                                 </button>
                                             )}
                                             {isDictating && isCheckAnswer && (
@@ -1360,134 +1273,68 @@ export default function Learning() {
                                                     <i className="fa-solid fa-eraser"></i>
                                                 </button>
                                             )}
-                                            {/* {isVietnamese ? (
-                                                <button
-                                                    onClick={handleVietnameseSubtitle}
-                                                    type="button"
-                                                    className="btn btn-primary btn-sm border-0 bg-transparent"
-                                                >
-                                                    <i className="fa-solid fa-closed-captioning"></i>
-                                                </button>
-                                            ) : (
-                                                <button
-                                                    onClick={handleVietnameseSubtitle}
-                                                    type="button"
-                                                    className="btn btn-primary btn-sm border-0 bg-transparent"
-                                                >
-                                                    <i className="fa-regular fa-closed-captioning"></i>
-                                                </button>
-                                            )} */}
-                                            {/* {isRepeatedOn ? (
-                                                <button
-                                                    onClick={handleRepeat}
-                                                    type="button"
-                                                    className="btn btn-primary btn-sm border-0 bg-transparent"
-                                                >
-                                                    <PiRepeatThin />
-                                                </button>
-                                            ) : (
-                                                <button
-                                                    onClick={handleRepeat}
-                                                    type="button"
-                                                    className="btn btn-primary btn-sm border-0 bg-transparent"
-                                                >
-                                                    <i className="fa-solid fa-repeat"></i>
-                                                </button>
-                                            )} */}
-
-                                            {/* {isDictating && (
-                                                <button
-                                                    // onClick={handleRepeat}
-                                                    type="button"
-                                                    className="btn btn-primary btn-sm border-0 bg-transparent"
-                                                >
-                                                    <i className="fa-solid fa-stairs"></i>
-                                                </button>
-                                            )} */}
-                                            {/* <button
-                                                // onClick={handleRepeat}
-                                                type="button"
-                                                className="btn btn-primary btn-sm border-0 bg-transparent"
-                                            >
-                                                <i className="fa-solid fa-gauge-high"></i>
-                                            </button> */}
                                         </div>
-                                    ) : (
-                                        <div className="d-flex justify-content-center">
-                                            <div className="btn-group" role="group" aria-label="Basic example">
-                                                {isVietnamese ? (
+
+                                        {/* progress bar */}
+                                        <div className="d-flex justify-content-between mt-md-5">
+                                            <p className="fw-bolder text-capitalize text-secondary mx-3">
+                                                {lessonTitle}
+                                            </p>
+                                            <div className="mx-2">
+                                                {isDictating && (
                                                     <button
-                                                        onClick={handleVietnameseSubtitle}
+                                                        // onClick={handleRepeat}
                                                         type="button"
-                                                        className="btn btn-secondary btn-sm"
+                                                        className="btn btn-primary btn-sm border-0 bg-transparent"
                                                     >
-                                                        <i className="fa-solid fa-closed-captioning"></i>
+                                                        <i className="fa-solid fa-stairs"></i>
                                                     </button>
-                                                ) : (
+                                                )}
+                                                {isDictating && (
                                                     <button
-                                                        onClick={handleVietnameseSubtitle}
+                                                        // onClick={handleRepeat}
                                                         type="button"
-                                                        className="btn btn-secondary btn-sm"
+                                                        className="btn btn-primary btn-sm border-0 bg-transparent"
                                                     >
-                                                        <i className="fa-regular fa-closed-captioning"></i>
+                                                        <i className="fa-solid fa-gauge-high"></i>
                                                     </button>
                                                 )}
                                                 {isRepeatedOn ? (
                                                     <button
                                                         onClick={handleRepeat}
                                                         type="button"
-                                                        className="btn btn-secondary btn-sm"
+                                                        className="btn btn-primary btn-sm border-0 bg-transparent"
                                                     >
-                                                        <PiRepeatThin />
+                                                        {/* <PiRepeatThin /> */}
+                                                        <i className="fa-solid fa-arrow-right"></i>
                                                     </button>
                                                 ) : (
                                                     <button
                                                         onClick={handleRepeat}
                                                         type="button"
-                                                        className="btn btn-secondary btn-sm"
+                                                        className="btn btn-primary btn-sm border-0 bg-transparent"
                                                     >
                                                         <i className="fa-solid fa-repeat"></i>
                                                     </button>
                                                 )}
-
-                                                {isDictating && (
-                                                    <button
-                                                        // onClick={handleRepeat}
-                                                        type="button"
-                                                        className="btn btn-secondary btn-sm"
-                                                    >
-                                                        <i className="fa-solid fa-stairs"></i>
-                                                    </button>
-                                                )}
-                                                <button
-                                                    // onClick={handleRepeat}
-                                                    type="button"
-                                                    className="btn btn-secondary btn-sm"
-                                                >
-                                                    <i className="fa-solid fa-gauge-high"></i>
-                                                </button>
-
-                                                {isDictating && (
-                                                    <button
-                                                        onClick={handleShowCorrectAnswer}
-                                                        type="button"
-                                                        className="btn btn-secondary btn-sm"
-                                                    >
-                                                        <i className="fa-solid fa-circle-check"></i>
-                                                    </button>
-                                                )}
-                                                {isDictating && (
-                                                    <button
-                                                        onClick={handleClearAnswer}
-                                                        type="button"
-                                                        className="btn btn-secondary"
-                                                    >
-                                                        <i className="fa-solid fa-eraser"></i>
-                                                    </button>
-                                                )}
                                             </div>
                                         </div>
-                                    )}
+
+                                        <div className="progress mx-3" style={{ height: '2px' }}>
+                                            <div
+                                                className="progress-bar text-bg-primary"
+                                                role="progressbar"
+                                                style={{ width: '25%' }}
+                                                aria-valuenow="25"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                            ></div>
+                                        </div>
+                                        <div className="d-flex justify-content-between mx-3 mt-1">
+                                            <p className="time-progress">0.0</p>
+                                            <p className="time-progress">4.3</p>
+                                        </div>
+                                    </div>
 
                                     {/* button bar for playing */}
                                     {isMobile ? (
@@ -1496,7 +1343,7 @@ export default function Learning() {
                                                 <button
                                                     onClick={handleVietnameseSubtitle}
                                                     type="button"
-                                                    className="btn btn-primary border-0 bg-transparent fs-1"
+                                                    className="btn btn-primary border-0 bg-transparent fs-5 py-0"
                                                 >
                                                     <i className="fa-solid fa-closed-captioning"></i>
                                                 </button>
@@ -1504,7 +1351,7 @@ export default function Learning() {
                                                 <button
                                                     onClick={handleVietnameseSubtitle}
                                                     type="button"
-                                                    className="btn btn-primary border-0 bg-transparent fs-1"
+                                                    className="btn btn-primary border-0 bg-transparent fs-5 py-0"
                                                 >
                                                     <i className="fa-regular fa-closed-captioning"></i>
                                                 </button>
@@ -1519,7 +1366,7 @@ export default function Learning() {
                                             <button
                                                 onClick={handlePrevious}
                                                 type="button"
-                                                className="btn btn-primary border-0 bg-transparent fs-1"
+                                                className="btn btn-primary border-0 bg-transparent fs-5 py-0"
                                             >
                                                 <i className="fa-solid fa-backward-step"></i>
                                             </button>
@@ -1528,7 +1375,7 @@ export default function Learning() {
                                                 <button
                                                     onClick={pause}
                                                     type="button"
-                                                    className="btn btn-primary border-0 bg-transparent fs-1"
+                                                    className="btn btn-primary border-0 bg-transparent btn-custom-play-stop py-0"
                                                 >
                                                     <i className="fa-solid fa-circle-pause"></i>
                                                 </button>
@@ -1536,7 +1383,7 @@ export default function Learning() {
                                                 <button
                                                     onClick={play}
                                                     type="button"
-                                                    className="btn btn-primary border-0 bg-transparent fs-1"
+                                                    className="btn btn-primary border-0 bg-transparent btn-custom-play-stop py-0"
                                                 >
                                                     <i className="fa-solid fa-circle-play"></i>
                                                 </button>
@@ -1544,7 +1391,7 @@ export default function Learning() {
                                             <button
                                                 onClick={handleNext}
                                                 type="button"
-                                                className="btn btn-primary border-0 bg-transparent fs-1"
+                                                className="btn btn-primary border-0 bg-transparent fs-5 py-0"
                                             >
                                                 <i className="fa-solid fa-forward-step"></i>
                                             </button>
@@ -1552,17 +1399,17 @@ export default function Learning() {
                                                 <button
                                                     onClick={handleShowTapescript}
                                                     type="button"
-                                                    className="btn btn-primary border-0 bg-transparent fs-1"
+                                                    className="btn btn-primary border-0 bg-transparent fs-5 py-0"
                                                 >
                                                     {/* <i className="fa-solid fa-scroll"></i> */}
-                                                    <i class="fa-solid fa-book-open"></i>
-                                                    {/* <i class="fa-solid fa-book"></i> */}
+                                                    <i className="fa-solid fa-book-open"></i>
+                                                    {/* <i className="fa-solid fa-book"></i> */}
                                                 </button>
                                             ) : (
                                                 <button
                                                     onClick={handleShowDictation}
                                                     type="button"
-                                                    className="btn btn-primary border-0 bg-transparent fs-1"
+                                                    className="btn btn-primary border-0 bg-transparent fs-5 py-0"
                                                 >
                                                     <i className="fa-solid fa-pen-clip"></i>
                                                 </button>
@@ -1570,17 +1417,27 @@ export default function Learning() {
                                         </div>
                                     ) : (
                                         <div className="d-flex justify-content-center">
-                                            <button
-                                                onClick={handleListenAgain}
-                                                type="button"
-                                                className="btn btn-primary btn-custom"
-                                            >
-                                                <i className="fa-solid fa-rotate-right"></i>
-                                            </button>
+                                            {isVietnamese ? (
+                                                <button
+                                                    onClick={handleVietnameseSubtitle}
+                                                    type="button"
+                                                    className="btn btn-primary border-0 bg-transparent fs-5"
+                                                >
+                                                    <i className="fa-solid fa-closed-captioning"></i>
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    onClick={handleVietnameseSubtitle}
+                                                    type="button"
+                                                    className="btn btn-primary border-0 bg-transparent fs-5"
+                                                >
+                                                    <i className="fa-regular fa-closed-captioning"></i>
+                                                </button>
+                                            )}
                                             <button
                                                 onClick={handlePrevious}
                                                 type="button"
-                                                className="btn btn-primary btn-custom"
+                                                className="btn btn-primary border-0 bg-transparent fs-5"
                                             >
                                                 <i className="fa-solid fa-backward-step"></i>
                                             </button>
@@ -1589,7 +1446,7 @@ export default function Learning() {
                                                 <button
                                                     onClick={pause}
                                                     type="button"
-                                                    className="btn btn-primary btn-custom"
+                                                    className="btn btn-primary border-0 bg-transparent btn-custom-play-stop"
                                                 >
                                                     <i className="fa-solid fa-circle-pause"></i>
                                                 </button>
@@ -1597,7 +1454,7 @@ export default function Learning() {
                                                 <button
                                                     onClick={play}
                                                     type="button"
-                                                    className="btn btn-primary btn-custom"
+                                                    className="btn btn-primary border-0 bg-transparent btn-custom-play-stop"
                                                 >
                                                     <i className="fa-solid fa-circle-play"></i>
                                                 </button>
@@ -1605,7 +1462,7 @@ export default function Learning() {
                                             <button
                                                 onClick={handleNext}
                                                 type="button"
-                                                className="btn btn-primary btn-custom"
+                                                className="btn btn-primary border-0 bg-transparent fs-5"
                                             >
                                                 <i className="fa-solid fa-forward-step"></i>
                                             </button>
@@ -1613,7 +1470,7 @@ export default function Learning() {
                                                 <button
                                                     onClick={handleShowTapescript}
                                                     type="button"
-                                                    className="btn btn-primary btn-custom"
+                                                    className="btn btn-primary border-0 bg-transparent fs-5"
                                                 >
                                                     <i className="fa-solid fa-scroll"></i>
                                                 </button>
@@ -1621,7 +1478,7 @@ export default function Learning() {
                                                 <button
                                                     onClick={handleShowDictation}
                                                     type="button"
-                                                    className="btn btn-primary btn-custom"
+                                                    className="btn btn-primary border-0 bg-transparent fs-5"
                                                 >
                                                     <i className="fa-solid fa-pen-clip"></i>
                                                 </button>

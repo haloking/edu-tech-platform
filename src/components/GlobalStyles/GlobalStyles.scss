@@ -32,12 +32,19 @@ $headings-font-family: Roboto;
 @import '~bootstrap/scss/bootstrap';
 // @import '../../../node_modules/bootstrap/scss/bootstrap';
 
+:root {
+    --primary-custom-color: #413ada;
+    --secondary-custom-color: #f47a62;
+    --right-text-color: #f47a62;
+    --wrong-text-color: #f6cf33;
+}
+
 html {
     text-rendering: optimizeSpeed;
 }
 
 body {
-    // overflow-y: hidden;
+    overflow-y: hidden;
 }
 
 /* avoid fixed top nav-bar from hiding content */
