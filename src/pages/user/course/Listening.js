@@ -1277,9 +1277,16 @@ export default function Learning() {
 
                                         {/* progress bar */}
                                         <div className="d-flex justify-content-between mt-md-5">
-                                            <p className="fw-bolder text-capitalize text-secondary mx-3">
-                                                {lessonTitle}
-                                            </p>
+                                            {isMobile && (
+                                                <p className="fw-bolder text-capitalize text-secondary mx-3">
+                                                    {lessonTitle}
+                                                </p>
+                                            )}
+                                            {!isMobile && (
+                                                <p className="fw-bolder text-capitalize fs-5 text-secondary mx-3">
+                                                    {lessonTitle}
+                                                </p>
+                                            )}
                                             <div className="mx-2">
                                                 {isDictating && (
                                                     <button
