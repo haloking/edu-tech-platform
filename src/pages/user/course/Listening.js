@@ -1,3 +1,5 @@
+import { Tooltip } from 'bootstrap/dist/js/bootstrap.bundle.js';
+
 import './Listening.scss';
 
 import { useState, useEffect, useRef } from 'react';
@@ -33,18 +35,6 @@ export default function Learning() {
     // context
     const [isLearning, setIsLearning] = useIsLearning();
 
-    // hook
-    useEffect(() => {
-        setIsLearning(true);
-        // console.log('isLearning', isLearning);
-
-        // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-        // const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
-        // return () => {
-        //     tooltipList.map((t) => t.dispose());
-        // };
-    }, []);
-
     // get window size dynamically
     const windowSize = useSize();
     // console.log('width:', windowSize[0]);
@@ -61,15 +51,6 @@ export default function Learning() {
 
     // state
     const [isScrollbarsApplied, setIsScrollbarsApplied] = useState(true);
-
-    // hook
-    useEffect(() => {
-        if (isMobile) {
-            setIsScrollbarsApplied(false);
-        } else {
-            setIsScrollbarsApplied(true);
-        }
-    }, [windowSize]);
 
     // state
     const [course, setCourse] = useState({});
@@ -133,6 +114,21 @@ export default function Learning() {
     const contentTitleRef = useRef(null);
 
     // hooks
+    // window size hook
+    useEffect(() => {
+        if (isMobile) {
+            setIsScrollbarsApplied(false);
+        } else {
+            setIsScrollbarsApplied(true);
+        }
+    }, [windowSize]);
+
+    // Learning UI hook
+    useEffect(() => {
+        setIsLearning(true);
+        // console.log('isLearning', isLearning);
+    }, []);
+
     const params = useParams();
     useEffect(() => {
         if (params?.slug) {
@@ -283,6 +279,15 @@ export default function Learning() {
     //         });
     //     });
     // }, [curriculums]);
+
+    // Tooltips hook
+    useEffect(() => {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new Tooltip(tooltipTriggerEl));
+        return () => {
+            tooltipList.map((t) => t.dispose());
+        };
+    }, [isLessonSelected, isCheckAnswer, isVietnamese, isDictating]);
 
     const handleClickSentence = (e, text) => {
         try {
@@ -1252,51 +1257,101 @@ export default function Learning() {
 
                                     {/* progress bar and lesson title shown on Mobile */}
                                     <div className="w-md-75 w-xl-50 mx-auto">
-                                        {/* button bar for utilities */}
+                                        {/* check answer button */}
                                         <div className="d-flex justify-content-between mx-2">
                                             {isDictating && !isCheckAnswer && (
                                                 <button
                                                     onClick={handleShowCorrectAnswer}
                                                     type="button"
-                                                    className="btn btn-primary btn-sm border-0 bg-transparent"
+                                                    className="btn btn-primary border-0 bg-transparent"
                                                 >
                                                     {/* <i className="fa-solid fa-circle-check"></i> */}
-                                                    <i className="fa-solid fa-spell-check"></i>
+                                                    <span
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom"
+                                                        data-bs-title="Hiện đáp án"
+                                                    >
+                                                        <i className="fa-solid fa-spell-check"></i>
+                                                    </span>
                                                 </button>
                                             )}
                                             {isDictating && isCheckAnswer && (
                                                 <button
                                                     onClick={handleClearAnswer}
                                                     type="button"
-                                                    className="btn btn-primary btn-sm border-0 bg-transparent"
+                                                    className="btn btn-primary border-0 bg-transparent"
                                                 >
-                                                    <i className="fa-solid fa-eraser"></i>
+                                                    <span
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom"
+                                                        data-bs-title="Xóa đáp án"
+                                                    >
+                                                        <i className="fa-solid fa-eraser"></i>
+                                                    </span>
                                                 </button>
                                             )}
                                         </div>
 
-                                        {/* progress bar */}
-                                        <div className="d-flex justify-content-between mt-md-5">
+                                        {/* title and utilities */}
+                                        <div className="d-flex justify-content-between mb-1 mt-md-5" role="toolbar">
                                             {isMobile && (
-                                                <p className="fw-bolder text-capitalize text-secondary mx-3">
+                                                <p className="fw-bolder text-capitalize text-secondary ms-3 mb-0">
                                                     {lessonTitle}
                                                 </p>
                                             )}
                                             {!isMobile && (
-                                                <p className="fw-bolder text-capitalize fs-5 text-secondary mx-3">
+                                                <p className="fw-bolder text-capitalize fs-5 text-secondary ms-3 mb-0">
                                                     {lessonTitle}
                                                 </p>
                                             )}
-                                            <div className="mx-2">
+
+                                            <div className="btn-group me-2" role="group">
                                                 {isDictating && (
-                                                    <button
-                                                        // onClick={handleRepeat}
-                                                        type="button"
-                                                        className="btn btn-primary btn-sm border-0 bg-transparent"
-                                                    >
-                                                        <i className="fa-solid fa-stairs"></i>
-                                                    </button>
+                                                    // <button
+                                                    //     // onClick={handleRepeat}
+                                                    //     type="button"
+                                                    //     className="btn btn-primary btn-sm border-0 bg-transparent"
+                                                    // >
+                                                    //     <i className="fa-solid fa-stairs"></i>
+                                                    // </button>
+                                                    <div className="btn-group" role="group">
+                                                        <button
+                                                            className="btn btn-primary btn-sm border-0 bg-transparent dropdown-toggle"
+                                                            type="button"
+                                                            data-bs-toggle="dropdown"
+                                                        >
+                                                            <i className="fa-solid fa-stairs"></i>
+                                                        </button>
+                                                        <ul className="dropdown-menu">
+                                                            <li>
+                                                                <a
+                                                                    // onClick={assignSelectedDictationIndex('easy')}
+                                                                    className="dropdown-item"
+                                                                    type="button"
+                                                                    href="#"
+                                                                >
+                                                                    Dễ
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a className="dropdown-item" href="#">
+                                                                    Trung bình
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a className="dropdown-item" href="#">
+                                                                    Khó
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a className="dropdown-item" href="#">
+                                                                    Cả câu
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 )}
+
                                                 {isDictating && (
                                                     <button
                                                         // onClick={handleRepeat}
@@ -1327,6 +1382,7 @@ export default function Learning() {
                                             </div>
                                         </div>
 
+                                        {/* progress bar */}
                                         <div className="progress mx-3" style={{ height: '2px' }}>
                                             <div
                                                 className="progress-bar text-bg-primary"
@@ -1430,7 +1486,13 @@ export default function Learning() {
                                                     type="button"
                                                     className="btn btn-primary border-0 bg-transparent fs-5"
                                                 >
-                                                    <i className="fa-solid fa-closed-captioning"></i>
+                                                    <span
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom"
+                                                        data-bs-title="Tắt phụ đề Tiếng Việt"
+                                                    >
+                                                        <i className="fa-solid fa-closed-captioning"></i>
+                                                    </span>
                                                 </button>
                                             ) : (
                                                 <button
@@ -1438,7 +1500,13 @@ export default function Learning() {
                                                     type="button"
                                                     className="btn btn-primary border-0 bg-transparent fs-5"
                                                 >
-                                                    <i className="fa-regular fa-closed-captioning"></i>
+                                                    <span
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom"
+                                                        data-bs-title="Bật phụ đề Tiếng Việt"
+                                                    >
+                                                        <i className="fa-regular fa-closed-captioning"></i>
+                                                    </span>
                                                 </button>
                                             )}
                                             <button
@@ -1479,7 +1547,13 @@ export default function Learning() {
                                                     type="button"
                                                     className="btn btn-primary border-0 bg-transparent fs-5"
                                                 >
-                                                    <i className="fa-solid fa-scroll"></i>
+                                                    <span
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom"
+                                                        data-bs-title="Luyện nghe có lời thoại"
+                                                    >
+                                                        <i className="fa-solid fa-scroll"></i>
+                                                    </span>
                                                 </button>
                                             ) : (
                                                 <button
@@ -1487,7 +1561,13 @@ export default function Learning() {
                                                     type="button"
                                                     className="btn btn-primary border-0 bg-transparent fs-5"
                                                 >
-                                                    <i className="fa-solid fa-pen-clip"></i>
+                                                    <span
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom"
+                                                        data-bs-title="Luyện nghe chép chính tả"
+                                                    >
+                                                        <i className="fa-solid fa-pen-clip"></i>
+                                                    </span>
                                                 </button>
                                             )}
                                         </div>
