@@ -287,7 +287,7 @@ export default function Learning() {
         return () => {
             tooltipList.map((t) => t.dispose());
         };
-    }, [isLessonSelected, isCheckAnswer, isVietnamese, isDictating]);
+    }, [isLessonSelected, isCheckAnswer, isVietnamese, isDictating, isRepeatedOn]);
 
     const handleClickSentence = (e, text) => {
         try {
@@ -1361,22 +1361,35 @@ export default function Learning() {
                                                         <i className="fa-solid fa-gauge-high"></i>
                                                     </button>
                                                 )}
-                                                {isRepeatedOn ? (
+                                                {isRepeatedOn && (
                                                     <button
                                                         onClick={handleRepeat}
                                                         type="button"
                                                         className="btn btn-primary btn-sm border-0 bg-transparent"
                                                     >
                                                         {/* <PiRepeatThin /> */}
-                                                        <i className="fa-solid fa-arrow-right"></i>
+                                                        <span
+                                                            data-bs-toggle="tooltip"
+                                                            data-bs-placement="top"
+                                                            data-bs-title="Tắt tự động lặp lại"
+                                                        >
+                                                            <i className="fa-solid fa-arrow-right"></i>
+                                                        </span>
                                                     </button>
-                                                ) : (
+                                                )}
+                                                {!isRepeatedOn && (
                                                     <button
                                                         onClick={handleRepeat}
                                                         type="button"
                                                         className="btn btn-primary btn-sm border-0 bg-transparent"
                                                     >
-                                                        <i className="fa-solid fa-repeat"></i>
+                                                        <span
+                                                            data-bs-toggle="tooltip"
+                                                            data-bs-placement="top"
+                                                            data-bs-title="Bật tự động lặp lại"
+                                                        >
+                                                            <i className="fa-solid fa-repeat"></i>
+                                                        </span>
                                                     </button>
                                                 )}
                                             </div>
@@ -1480,7 +1493,7 @@ export default function Learning() {
                                         </div>
                                     ) : (
                                         <div className="d-flex justify-content-center">
-                                            {isVietnamese ? (
+                                            {isVietnamese && (
                                                 <button
                                                     onClick={handleVietnameseSubtitle}
                                                     type="button"
@@ -1494,7 +1507,8 @@ export default function Learning() {
                                                         <i className="fa-solid fa-closed-captioning"></i>
                                                     </span>
                                                 </button>
-                                            ) : (
+                                            )}
+                                            {!isVietnamese && (
                                                 <button
                                                     onClick={handleVietnameseSubtitle}
                                                     type="button"
@@ -1509,6 +1523,7 @@ export default function Learning() {
                                                     </span>
                                                 </button>
                                             )}
+
                                             <button
                                                 onClick={handlePrevious}
                                                 type="button"
@@ -1541,7 +1556,7 @@ export default function Learning() {
                                             >
                                                 <i className="fa-solid fa-forward-step"></i>
                                             </button>
-                                            {isDictating ? (
+                                            {isDictating && (
                                                 <button
                                                     onClick={handleShowTapescript}
                                                     type="button"
@@ -1552,10 +1567,11 @@ export default function Learning() {
                                                         data-bs-placement="bottom"
                                                         data-bs-title="Luyện nghe có lời thoại"
                                                     >
-                                                        <i className="fa-solid fa-scroll"></i>
+                                                        <i className="fa-solid fa-book-open"></i>
                                                     </span>
                                                 </button>
-                                            ) : (
+                                            )}
+                                            {!isDictating && (
                                                 <button
                                                     onClick={handleShowDictation}
                                                     type="button"
