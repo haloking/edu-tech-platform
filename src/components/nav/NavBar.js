@@ -6,14 +6,14 @@ import { FaUserCircle } from 'react-icons/fa';
 
 import { useIsLearning } from '../../context/isLearning';
 
-// import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from 'react-responsive';
 
 export default function NavBar() {
     // media query
-    const isMobile = false;
+    // const isMobile = false;
     // const isDesktop = useMediaQuery({ minWidth: 992 });
     // const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
-    // const isMobile = useMediaQuery({ maxWidth: 767 });
+    const isMobile = useMediaQuery({ maxWidth: 767 });
 
     // const isNotDesktop = useMediaQuery({ maxWidth: 992 });
     // const isNotMobile = useMediaQuery({ minWidth: 768 });
@@ -87,6 +87,37 @@ export default function NavBar() {
                                             Liên hệ
                                         </a>
                                     </li>
+                                    <li className="nav-item">
+                                        <div class="dropdown">
+                                            <a
+                                                class="btn btn-secondary dropdown-toggle"
+                                                href="#"
+                                                role="button"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                            >
+                                                Dropdown link
+                                            </a>
+
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        Action
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        Another action
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        Something else here
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
 
                                     {/* {!loggedIn && (
                                     <>
@@ -115,7 +146,7 @@ export default function NavBar() {
                             // </a>
                         )}
                         {loggedIn && !isMobile && (
-                            <a className="dropstart">
+                            <div className="dropstart">
                                 <a
                                     className="dropdown-toggle login-button"
                                     id="navbarDropdown"
@@ -143,7 +174,7 @@ export default function NavBar() {
                                         <a className="dropdown-item">Something</a>
                                     </li>
                                 </ul>
-                            </a>
+                            </div>
                         )}
                         {loggedIn && isMobile && (
                             <a className="dropdown">

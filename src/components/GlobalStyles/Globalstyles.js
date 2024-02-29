@@ -1,7 +1,8 @@
 // Bootstrap JS
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+// import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-// import * as bootstrap from '../../node_modules/bootstrap/dist/js/bootstrap.bundle';
+// import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min';
+// import { Tooltip } from 'bootstrap/dist/js/bootstrap.bundle.js';
 
 // Bootstrap CSS
 import './GlobalStyles.scss';

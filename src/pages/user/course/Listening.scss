@@ -182,3 +182,13 @@ input:focus {
 .fill-in-the-blanks input {
     background-color: transparent;
 }
+
+.difficulty-menu {
+    padding: 5px 10px;
+    width: 100px;
+    background: #fff;
+    background-color: red;
+    border-radius: 8px;
+
+    // box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
+}

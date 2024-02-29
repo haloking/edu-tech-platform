@@ -28,7 +28,7 @@ $headings-font-family: Roboto;
 // $offcanvas-horizontal-width: 25vw;
 // $offcanvas-vertical-height: 30vh;
 
-// import Bootstrap CSS to set changes
+// import Bootstrap SCSS to set changes
 @import '~bootstrap/scss/bootstrap';
 // @import '../../../node_modules/bootstrap/scss/bootstrap';
 
@@ -44,7 +44,7 @@ html {
 }
 
 body {
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 
 /* avoid fixed top nav-bar from hiding content */
