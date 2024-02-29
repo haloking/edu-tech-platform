@@ -68,6 +68,16 @@ div#col-right {
         // right: 0;
         // box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.4) inset;
     }
+
+    .difficulty-menu {
+        padding: 15px;
+        width: 250px;
+        background: #fff;
+        background-color: rgb(40, 40, 40);
+        border-radius: 8px;
+
+        // box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
+    }
 }
 
 // Mobile, Tablet
@@ -93,6 +103,16 @@ div#col-right {
         // right: 0;
         // box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.4) inset;
         overflow-y: scroll;
+    }
+
+    .difficulty-menu {
+        padding: 15px;
+        width: 180px;
+        background: #fff;
+        background-color: rgb(40, 40, 40);
+        border-radius: 8px;
+
+        // box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
     }
 }
 
@@ -181,14 +201,4 @@ input:focus {
 
 .fill-in-the-blanks input {
     background-color: transparent;
-}
-
-.difficulty-menu {
-    padding: 5px 10px;
-    width: 100px;
-    background: #fff;
-    background-color: red;
-    border-radius: 8px;
-
-    // box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
 }

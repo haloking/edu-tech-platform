@@ -2,7 +2,7 @@
 // import 'bootstrap/dist/js/bootstrap.bundle.min';
 import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min';
 
-// import Tippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react/headless';
 
 import './Listening.scss';
 
@@ -57,7 +57,7 @@ export default function Learning() {
     const [isScrollbarsApplied, setIsScrollbarsApplied] = useState(true);
 
     // Tippy
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(false);
     const show = () => setVisible(true);
     const hide = () => setVisible(false);
 
@@ -94,6 +94,7 @@ export default function Learning() {
 
     // easy, medium, difficult, all
     const [level, setLevel] = useState('medium');
+    const [speed, setSpeed] = useState('1.0');
 
     // const [isCorrectAnswer0, setIsCorrectAnswer0] = useState(false);
     // const [isCorrectAnswer1, setIsCorrectAnswer1] = useState(false);
@@ -904,6 +905,10 @@ export default function Learning() {
         handleClearAnswer();
     };
 
+    const assignSelectedSpeed = (selectedSpeed) => {
+        console.log('selectedSpeed:', selectedSpeed);
+    };
+
     const isCorrectWholeSentence = () => {
         console.log(tapescript[textIndex].english);
         console.log(answerWholeSentence);
@@ -1038,6 +1043,7 @@ export default function Learning() {
                                             // controls={isDictating ? false : true}
                                             controls={false}
                                             playing={playing}
+                                            playbackRate={speed}
                                             onPlay={play}
                                             onPause={pause}
                                         />
@@ -1315,38 +1321,99 @@ export default function Learning() {
                                             )}
 
                                             <div className="btn-group me-2" role="group">
-                                                {/* {isDictating && (
-                                                    <Tippy
-                                                        interactive
-                                                        placement="top-start"
-                                                        visible={visible}
-                                                        onClickOutside={hide}
-                                                        render={(attrs) => (
-                                                            <div className="difficulty-menu" tabIndex="-1" {...attrs}>
-                                                                <p>Dễ</p>
-                                                                <p>Trung bình</p>
-                                                                <p>Khó</p>
-                                                                <p>Cả câu</p>
-                                                            </div>
-                                                        )}
-                                                    >
-                                                        <button
-                                                            // onClick={visible ? hide : show}
-                                                            type="button"
-                                                            className="btn btn-primary btn-sm border-0 bg-transparent"
-                                                        >
-                                                            <span
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                data-bs-title="Chọn độ khó"
-                                                            >
-                                                                <i className="fa-solid fa-stairs"></i>
-                                                            </span>
-                                                        </button>
-                                                    </Tippy>
-                                                )} */}
+                                                <Tippy
+                                                    interactive
+                                                    placement="top-start"
+                                                    visible={visible}
+                                                    onClickOutside={hide}
+                                                    render={(attrs) => (
+                                                        <div className="difficulty-menu" tabIndex="-1" {...attrs}>
+                                                            {isDictating && (
+                                                                <div className="input-group mb-3">
+                                                                    <label
+                                                                        className="input-group-text"
+                                                                        htmlFor="inputGroupSelect01"
+                                                                    >
+                                                                        <i className="me-2 fa-solid fa-stairs"></i>
+                                                                        {!isMobile && 'Độ khó'}
+                                                                    </label>
 
-                                                {isDictating && (
+                                                                    <select
+                                                                        className="form-select"
+                                                                        id="inputGroupSelect01"
+                                                                        aria-label="Default select example"
+                                                                        value={level}
+                                                                        onChange={(e) => {
+                                                                            console.log('level:', e.target.value);
+                                                                            setLevel(e.target.value);
+                                                                            assignSelectedDictationIndex(
+                                                                                e.target.value,
+                                                                            );
+                                                                        }}
+                                                                    >
+                                                                        <option value="easy">Dễ</option>
+                                                                        <option value="medium">Vừa</option>
+                                                                        <option value="difficult">Khó</option>
+                                                                        <option value="all">Cả câu</option>
+                                                                    </select>
+                                                                </div>
+                                                            )}
+
+                                                            <div className="input-group">
+                                                                <label
+                                                                    className="input-group-text"
+                                                                    htmlFor="inputGroupSelect02"
+                                                                >
+                                                                    <i className="me-2 fa-solid fa-gauge-high"></i>
+                                                                    {!isMobile && 'Tốc độ'}
+                                                                </label>
+
+                                                                <select
+                                                                    className="form-select"
+                                                                    id="inputGroupSelect02"
+                                                                    aria-label="Default select example"
+                                                                    value={speed}
+                                                                    onChange={(e) => {
+                                                                        console.log('speed:', e.target.value);
+                                                                        setSpeed(e.target.value);
+                                                                        assignSelectedSpeed(e.target.value);
+                                                                    }}
+                                                                >
+                                                                    <option value="0.5">0.5</option>
+                                                                    <option value="0.75">0.75</option>
+                                                                    <option value="1.0">1.0</option>
+                                                                    <option value="1.25">1.25</option>
+                                                                    <option value="1.5">1.5</option>
+                                                                    <option value="1.75">1.75</option>
+                                                                    <option value="2">2</option>
+                                                                </select>
+                                                            </div>
+                                                            {/* <div>
+                                                                    <i className="fa-solid fa-stairs"></i>
+                                                                    <span className="ms-3">Độ khó</span>
+                                                                    <span className="me-2">Value</span>
+                                                                    <i className="fa-solid fa-chevron-right"></i>
+                                                                </div> */}
+                                                        </div>
+                                                    )}
+                                                >
+                                                    <button
+                                                        onClick={visible ? hide : show}
+                                                        type="button"
+                                                        className="btn btn-primary btn-sm border-0 bg-transparent"
+                                                    >
+                                                        <span
+                                                            data-bs-toggle="tooltip"
+                                                            data-bs-placement="top"
+                                                            data-bs-title="Cài đặt"
+                                                        >
+                                                            {/* <i className="fa-solid fa-stairs"></i> */}
+                                                            <i className="fa-solid fa-gear"></i>
+                                                        </span>
+                                                    </button>
+                                                </Tippy>
+
+                                                {/* {isDictating && (
                                                     <button
                                                         type="button"
                                                         className="btn btn-primary btn-sm border-0 bg-transparent"
@@ -1359,9 +1426,9 @@ export default function Learning() {
                                                             <i className="fa-solid fa-stairs"></i>
                                                         </span>
                                                     </button>
-                                                )}
+                                                )} */}
 
-                                                {isDictating && (
+                                                {/* {isDictating && (
                                                     <button
                                                         // onClick={handleRepeat}
                                                         type="button"
@@ -1375,7 +1442,7 @@ export default function Learning() {
                                                             <i className="fa-solid fa-gauge-high"></i>
                                                         </span>
                                                     </button>
-                                                )}
+                                                )} */}
                                                 {isRepeatedOn && (
                                                     <button
                                                         onClick={handleRepeat}
