@@ -78,6 +78,18 @@ div#col-right {
 
         // box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
     }
+
+    .text-subtitle {
+        border: none;
+        color: #a7a7a7;
+        font-weight: 400;
+        // background-color: inherit;
+        // padding: 14px 28px;
+        font-size: 1rem;
+        // cursor: pointer;
+        font-style: italic;
+        /* display: inline-block; */
+    }
 }
 
 // Mobile, Tablet
@@ -114,6 +126,18 @@ div#col-right {
 
         // box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
     }
+
+    .text-subtitle {
+        border: none;
+        color: #a7a7a7;
+        font-weight: 400;
+        // background-color: inherit;
+        // padding: 14px 28px;
+        font-size: 0.85rem;
+        // cursor: pointer;
+        font-style: italic;
+        /* display: inline-block; */
+    }
 }
 
 .pointer {
@@ -126,17 +150,6 @@ div#col-right {
     padding: 14px 28px;
     font-size: 16px;
     cursor: pointer;
-    /* display: inline-block; */
-}
-
-.text-subtitle {
-    border: none;
-    color: SlateBlue;
-    // background-color: inherit;
-    // padding: 14px 28px;
-    font-size: 0.85rem;
-    // cursor: pointer;
-    font-style: italic;
     /* display: inline-block; */
 }
 

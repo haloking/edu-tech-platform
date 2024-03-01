@@ -75,6 +75,7 @@ export default function Learning() {
     const [isVietnamese, setIsVietnamese] = useState(false);
     const [isLessonSelected, setIsLessonSelected] = useState(false);
     const [lessonTitle, setLessonTitle] = useState('');
+    const [curriculumTitle, setCurriculumTitle] = useState('');
 
     const [audio, setAudio] = useState('');
     const [tapescript, setTapescript] = useState([]);
@@ -336,7 +337,7 @@ export default function Learning() {
         setIsVietnamese(!isVietnamese);
     };
 
-    const handleClickLesson = async (e, lessonId, lessonTitle) => {
+    const handleClickLesson = async (e, lessonId, lessonTitle, curriculumTitle) => {
         e.preventDefault();
         // console.log(lessonId);
 
@@ -362,6 +363,7 @@ export default function Learning() {
             const tempTapescript = data?.tapescript?.tapescript;
             if (data) {
                 setLessonTitle(lessonTitle);
+                setCurriculumTitle(curriculumTitle);
             }
             // console.log(lessonTitle);
 
@@ -917,6 +919,24 @@ export default function Learning() {
         return tapescript[textIndex].english === answerWholeSentence;
     };
 
+    var simplifiedCourseTitle;
+    if (course.title) {
+        if (isMobile) {
+            simplifiedCourseTitle = course.title.split(' ')[0] + '...';
+        } else simplifiedCourseTitle = course.title;
+    } else {
+        simplifiedCourseTitle = '';
+    }
+
+    var simplifiedCurriculumTitle;
+    if (curriculumTitle.length > 0) {
+        if (isMobile) {
+            simplifiedCurriculumTitle = curriculumTitle.slice(0, 15) + '...';
+        } else simplifiedCurriculumTitle = course.title;
+    } else {
+        simplifiedCurriculumTitle = '';
+    }
+
     // Accordion menu component
     const Menu = () => {
         return (
@@ -948,7 +968,9 @@ export default function Learning() {
                                 <div className="list-group list-group-flush list-group-numbered">
                                     {curriculum.lessons?.map((lesson) => (
                                         <a
-                                            onClick={(e) => handleClickLesson(e, lesson._id, lesson.title)}
+                                            onClick={(e) =>
+                                                handleClickLesson(e, lesson._id, lesson.title, curriculum.title)
+                                            }
                                             className="list-group-item list-group-item-action"
                                             key={lesson._id}
                                         >
@@ -1019,7 +1041,7 @@ export default function Learning() {
 
     return (
         <div className="container-fluid p-0 m-0">
-            <LearningTopBar title={course.title}></LearningTopBar>
+            <LearningTopBar title={simplifiedCourseTitle}></LearningTopBar>
 
             <section className="learning-section">
                 <div className="d-flex justify-content-center flex-column bg-black bg-gradient">
@@ -1043,7 +1065,7 @@ export default function Learning() {
                                             // controls={isDictating ? false : true}
                                             controls={false}
                                             playing={playing}
-                                            playbackRate={speed}
+                                            playbackRate={Number(speed)}
                                             onPlay={play}
                                             onPause={pause}
                                         />
@@ -1243,7 +1265,8 @@ export default function Learning() {
                                                     <textarea
                                                         className="form-control mb-3"
                                                         style={{
-                                                            color: isCorrectWholeSentence() ? 'blue' : 'red',
+                                                            color: isCorrectWholeSentence() ? '#f47a62' : '#f6cf33',
+                                                            minHeight: '100px',
                                                         }}
                                                         value={answerWholeSentence}
                                                         placeholder="Chép cả câu ở đây"
@@ -1273,7 +1296,12 @@ export default function Learning() {
                                     {/* progress bar and lesson title shown on Mobile */}
                                     <div className="w-md-75 w-xl-50 mx-auto">
                                         {/* check answer button */}
-                                        <div className="d-flex justify-content-between mx-2">
+                                        <div className="d-flex justify-content-between mx-1">
+                                            {isMobile && (
+                                                <button className="btn btn-primary fw-bolder text-secondary border-0 bg-transparent">
+                                                    {simplifiedCurriculumTitle}
+                                                </button>
+                                            )}
                                             {isDictating && !isCheckAnswer && (
                                                 <button
                                                     onClick={handleShowCorrectAnswer}
@@ -1308,14 +1336,17 @@ export default function Learning() {
                                         </div>
 
                                         {/* title and buttons for utilities */}
-                                        <div className="d-flex justify-content-between mb-1 mt-md-5" role="toolbar">
+                                        {!isMobile && (
+                                            <p className="fw-bolder text-capitalize fs-5 text-secondary ms-3 mb-0 mt-md-5">
+                                                {curriculumTitle}
+                                            </p>
+                                        )}
+                                        <div className="d-flex justify-content-between mb-1" role="toolbar">
                                             {isMobile && (
-                                                <p className="fw-bolder text-capitalize text-secondary ms-3 mb-0">
-                                                    {lessonTitle}
-                                                </p>
+                                                <p className="text-capitalize text-white ms-3">{lessonTitle}</p>
                                             )}
                                             {!isMobile && (
-                                                <p className="fw-bolder text-capitalize fs-5 text-secondary ms-3 mb-0">
+                                                <p className="fw-bolder text-capitalize fs-5 text-white ms-3">
                                                     {lessonTitle}
                                                 </p>
                                             )}
@@ -1408,41 +1439,17 @@ export default function Learning() {
                                                             data-bs-title="Cài đặt"
                                                         >
                                                             {/* <i className="fa-solid fa-stairs"></i> */}
-                                                            <i className="fa-solid fa-gear"></i>
+                                                            <i
+                                                                className={
+                                                                    isMobile
+                                                                        ? 'fa-solid fa-gear'
+                                                                        : 'fs-5 fa-solid fa-gear'
+                                                                }
+                                                            ></i>
                                                         </span>
                                                     </button>
                                                 </Tippy>
 
-                                                {/* {isDictating && (
-                                                    <button
-                                                        type="button"
-                                                        className="btn btn-primary btn-sm border-0 bg-transparent"
-                                                    >
-                                                        <span
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-placement="top"
-                                                            data-bs-title="Chọn độ khó"
-                                                        >
-                                                            <i className="fa-solid fa-stairs"></i>
-                                                        </span>
-                                                    </button>
-                                                )} */}
-
-                                                {/* {isDictating && (
-                                                    <button
-                                                        // onClick={handleRepeat}
-                                                        type="button"
-                                                        className="btn btn-primary btn-sm border-0 bg-transparent"
-                                                    >
-                                                        <span
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-placement="bottom"
-                                                            data-bs-title="Tốc độ"
-                                                        >
-                                                            <i className="fa-solid fa-gauge-high"></i>
-                                                        </span>
-                                                    </button>
-                                                )} */}
                                                 {isRepeatedOn && (
                                                     <button
                                                         onClick={handleRepeat}
@@ -1455,7 +1462,13 @@ export default function Learning() {
                                                             data-bs-placement="top"
                                                             data-bs-title="Tắt tự động lặp lại"
                                                         >
-                                                            <i className="fa-solid fa-arrow-right"></i>
+                                                            <i
+                                                                className={
+                                                                    isMobile
+                                                                        ? 'fa-solid fa-arrow-right-long'
+                                                                        : 'fs-5 fa-solid fa-arrow-right-long'
+                                                                }
+                                                            ></i>
                                                         </span>
                                                     </button>
                                                 )}
@@ -1470,7 +1483,13 @@ export default function Learning() {
                                                             data-bs-placement="top"
                                                             data-bs-title="Bật tự động lặp lại"
                                                         >
-                                                            <i className="fa-solid fa-repeat"></i>
+                                                            <i
+                                                                className={
+                                                                    isMobile
+                                                                        ? 'fa-solid fa-repeat'
+                                                                        : 'fs-5 fa-solid fa-repeat'
+                                                                }
+                                                            ></i>
                                                         </span>
                                                     </button>
                                                 )}

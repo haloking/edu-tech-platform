@@ -5,7 +5,18 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import { PiDotsThreeBold } from 'react-icons/pi';
 
+import { useMediaQuery } from 'react-responsive';
+
 export default function LearningTopBar({ title }) {
+    // media query
+    // const isMobile = false;
+    // const isDesktop = useMediaQuery({ minWidth: 992 });
+    // const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+
+    // const isNotDesktop = useMediaQuery({ maxWidth: 992 });
+    // const isNotMobile = useMediaQuery({ minWidth: 768 });
+
     // access context
     const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
@@ -29,12 +40,19 @@ export default function LearningTopBar({ title }) {
                         <PiDotsThreeBold />
                     </span>
                 </button>
+                {isMobile && (
+                    <a className="navbar-brand text-light topic-title" href="#">
+                        {title}
+                    </a>
+                )}
                 <a className="navbar-brand text-secondary" href="/">
                     <i className="fa-solid fa-snowflake" id="logo" />
                 </a>
-                {/* <a className="navbar-brand text-light ms-5" href="#">
-                    {title}
-                </a> */}
+                {!isMobile && (
+                    <a className="navbar-brand text-light" href="#">
+                        {title}
+                    </a>
+                )}
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto">
